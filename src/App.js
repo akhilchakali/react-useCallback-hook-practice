@@ -1,18 +1,29 @@
-import {Routes, Route, BrowserRouter} from 'react-router-dom'
+import {useRef, useEffect} from 'react'
 
-import Login from './login'
-import Home from './home'
+const App = ( ) => {
+    const data = useRef(null)
 
-const App = () => {
+    const submitHandler =(e)=>{
+        e.preventDefault()
+        console.log(data.current.value)
+        data.current.value=""
+        console.log(data.current.value)
+    }
+    useEffect(()=>{
+        data.current.focus()
+    },[])
+
     return(
         <div>
-        <BrowserRouter>
-        <Routes>
-            <Route exact path='/' element={<Login/>}/>
-            <Route exact path="/home" element={<Home/>}/>
-        </Routes>
-        </BrowserRouter>
-        </div> 
+            <center>
+            <form onSubmit={submitHandler}>
+                <input ref={data} type="text" placeholder="Enter Your Name"/>
+                <br/>
+                <input type="submit"/>
+            </form>
+            </center>
+        </div>
     )
+
 }
 export default App
