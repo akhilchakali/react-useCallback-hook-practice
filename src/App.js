@@ -1,29 +1,30 @@
-import {useRef, useEffect} from 'react'
+import {useState, useCallback} from 'react'
 
-const App = ( ) => {
-    const data = useRef(null)
+const App = () => {
+    const [count, setCount] = useState(0)
+    const [count1, setCount1] = useState(0)
 
-    const submitHandler =(e)=>{
-        e.preventDefault()
-        console.log(data.current.value)
-        data.current.value=""
-        console.log(data.current.value)
-    }
-    useEffect(()=>{
-        data.current.focus()
-    },[])
+    const increase =useCallback(()=>{
+        setCount(count+1)
+    },[count])
+
+    const decrease =useCallback(()=>{
+        setCount(count-1)
+    },[count])
+
+    const addIncrement =useCallback(()=>{
+        setCount1(count1+1)
+    },[count1])
 
     return(
         <div>
-            <center>
-            <form onSubmit={submitHandler}>
-                <input ref={data} type="text" placeholder="Enter Your Name"/>
-                <br/>
-                <input type="submit"/>
-            </form>
-            </center>
+            <p>{count}</p>
+            <p>{count1}</p>
+           <button onClick={increase}>+</button>
+           <button onClick={decrease}>-</button>
+           <button onClick={addIncrement}>AddIncrement</button>
         </div>
     )
-
 }
+
 export default App
